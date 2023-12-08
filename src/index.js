@@ -1,35 +1,53 @@
 import React from 'react';
 import  ReactDOM from 'react-dom/client';
 
+import './index.css';
+
+const books = [
+    {
+        author: 'Jordan Moore',
+        title: 'Interesting Facts For Curious Minds',
+        img: 'images/Curious-mind.jpg',
+        id: 1,
+    },
+    {
+        author: 'Collen Hoover',
+        title: 'Too Late',
+        img: 'images/Too-late.PNG',
+        id: 2,
+    },
+] 
+
 const BookList = () => {
-    return <section>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
-    <Book/>
+    const getBook = (id) => {
+        const book = books.find((book)=> book.id === id )
+        console.log(book)
+    };
+    getBook(2);
+    return (
+    <section className='booklist'>
+        
+        {books.map((book)=>{
+        return <Book {...book} key={book.id} getBook={getBook} />;
+    })}
     </section>
-}
+    );
+};
 
-const Book = () => {
-    return <article>
-        <Image/>
-        <Title/>
-        <Author/>
+
+const Book = (props) => {
+    const { img, title, author, getBook, id} = props;
+    // console.log(props);
+return ( 
+    <article className='book'>  
+     <img src={img} alt={title} />
+        <h2>{title}</h2>
+        <button onClick={getBook(id)}>Click me </button>
+         <h4>{author}</h4>
     </article>
-}
+    );
+};
 
-const Image = () => 
-    <img 
-        src='Curious-mind.jpg' 
-        alt='Interesting Facts For Curious Minds' 
-/>
-const Title = () => <h2>Interesting Facts For Curious Minds</h2>
-const Author = () => {
-       return <h4>Jordan Moore</h4>
-}
 const root = ReactDOM.createRoot(document.getElementById
 ('root'));
 
